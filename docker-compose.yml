@@ -1,0 +1,16 @@
+services:
+  db:
+    image: postgres:latest
+    container_name: research-paper-ally-db
+    restart: always
+    environment:
+      - POSTGRES_USER=aitijhya
+      - POSTGRES_PASSWORD=aitijhya
+      - POSTGRES_DB=research-paper-ally-db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/data/postgres-data
+
+volumes:
+  postgres-data:
