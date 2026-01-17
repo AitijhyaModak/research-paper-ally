@@ -33,7 +33,7 @@ public class Review {
     @JoinColumn(name = "paper-id", insertable = false, updatable = false)
     private ResearchPaper paper;
 
-    private Integer score;
+    private Integer rating;
 
     private String comments;
 
