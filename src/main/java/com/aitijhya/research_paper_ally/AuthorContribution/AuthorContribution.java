@@ -18,7 +18,6 @@ import lombok.Data;
 @Data
 @Builder
 @AllArgsConstructor
-@Table(name = "author-contribution")
 public class AuthorContribution {
     @EmbeddedId
     private AuthorContributionId id;

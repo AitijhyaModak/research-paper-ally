@@ -33,6 +33,6 @@ public class Section {
     private String content;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "paper-id", insertable = false, updatable = false)
+    @JoinColumn(name = "paper_id", insertable = false, updatable = false)
     private ResearchPaper paper;
 }

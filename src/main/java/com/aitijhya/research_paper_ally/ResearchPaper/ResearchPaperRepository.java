@@ -6,8 +6,11 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+
 import java.util.Set;
 
+@Repository
 public interface ResearchPaperRepository extends JpaRepository<ResearchPaper, Long> {
     List<ResearchPaper> findByTitleIgnoreCase(String title);
 
@@ -20,7 +23,7 @@ public interface ResearchPaperRepository extends JpaRepository<ResearchPaper, Lo
 
     List<ResearchPaper> findByCitationsId(Long id);
 
-    List<ResearchPaper> findByReviewsRatingGreaterThanEqualTo(Integer rating);
+    List<ResearchPaper> findByReviewsRatingGreaterThanEqual(Integer rating);
 
     List<ResearchPaper> findByReviewsRatingGreaterThan(Integer rating);
 }
