@@ -1,4 +1,4 @@
-package com.aitijhya.research_paper_ally.DTO;
+package com.aitijhya.research_paper_ally.requestDTO;
 
 import java.util.List;
 

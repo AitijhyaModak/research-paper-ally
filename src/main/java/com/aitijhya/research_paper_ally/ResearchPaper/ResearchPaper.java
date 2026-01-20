@@ -60,11 +60,7 @@ public class ResearchPaper {
 
     @Builder.Default
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-        name = "paper_citations",
-        joinColumns = @JoinColumn(name = "paper_id"),
-        inverseJoinColumns = @JoinColumn(name = "cited_paper_id")
-    )
+    @JoinTable(name = "paper_citations", joinColumns = @JoinColumn(name = "paper_id"), inverseJoinColumns = @JoinColumn(name = "cited_paper_id"))
     private Set<ResearchPaper> citations = new HashSet<>();
 
     @Builder.Default
