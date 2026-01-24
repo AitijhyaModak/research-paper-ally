@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class ResearchPaperAllyApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(ResearchPaperAllyApplication.class, args);
-	}
+   public static void main(String[] args) {
+      SpringApplication.run(ResearchPaperAllyApplication.class, args);
+   }
 
 }

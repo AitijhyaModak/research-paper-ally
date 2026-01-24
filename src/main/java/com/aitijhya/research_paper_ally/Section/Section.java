@@ -1,6 +1,7 @@
 package com.aitijhya.research_paper_ally.Section;
 
 import com.aitijhya.research_paper_ally.ResearchPaper.ResearchPaper;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,24 +16,29 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.JdbcTypeCode;
 
 @Entity
 @Data
 @Builder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @AllArgsConstructor
+@NoArgsConstructor
 public class Section {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+   @Id
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
+   private Long id;
 
-    @Column(nullable = false)
-    private String title;
+   @Column(nullable = false)
+   private String title;
 
-    @Lob
-    private String content;
+   @Lob
+   @JdbcTypeCode(java.sql.Types.LONGVARCHAR)
+   private String content;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "paper_id", insertable = false, updatable = false)
-    private ResearchPaper paper;
+   @ManyToOne(fetch = FetchType.LAZY)
+   @JoinColumn(name = "paper_id", insertable = false, updatable = false)
+   @JsonBackReference
+   private ResearchPaper paper;
 }

@@ -46,10 +46,8 @@ public class ResearchPaperService {
 
         Set<ResearchPaper> citations = paperDTO.citationIds().stream().map(
                 obj -> {
-                    ResearchPaper citedPaper = researchPaperRepository.findById(obj)
+                    return researchPaperRepository.findById(obj)
                             .orElseThrow(() -> new ResourceNotFoundException("Cited paper does not exist."));
-
-                    return citedPaper;
                 }).collect(Collectors.toSet());
 
         List<Section> sections = paperDTO.sections().stream().map(

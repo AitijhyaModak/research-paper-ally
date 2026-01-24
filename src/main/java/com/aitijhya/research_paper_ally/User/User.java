@@ -9,24 +9,26 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Builder
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "users")
 public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+   @Id
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
+   private Long id;
 
-    @Column(nullable = false)
-    private String firstName;
+   @Column(nullable = false)
+   private String firstName;
 
-    private String middleName;
+   private String middleName;
 
-    private String lastName;
+   private String lastName;
 
-    @Column(unique = true, nullable = false)
-    private String email;
+   @Column(unique = true, nullable = false)
+   private String email;
 }

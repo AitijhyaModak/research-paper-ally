@@ -10,14 +10,14 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ResearchPaperRepository extends JpaRepository<ResearchPaper, Long> {
-    List<ResearchPaper> findByTitleIgnoreCase(String title);
+   List<ResearchPaper> findByTitleIgnoreCase(String title);
 
-    List<ResearchPaper> findByAuthorContributionsUserEmail(String email);
+   List<ResearchPaper> findByAuthorContributionsUserEmail(String email);
 
-    @Query("SELECT p from ResearchPaper p LEFT JOIN FETCH p.sections WHERE p.id = :id")
-    Optional<ResearchPaper> findByIdWithSections(@Param("id") Long id);
+   @Query("SELECT p from ResearchPaper p LEFT JOIN FETCH p.sections WHERE p.id = :id")
+   Optional<ResearchPaper> findByIdWithSections(@Param("id") Long id);
 
-    List<ResearchPaper> findByReviewsRatingGreaterThanEqual(Integer rating);
+   List<ResearchPaper> findByReviewsRatingGreaterThanEqual(Integer rating);
 
-    List<ResearchPaper> findByReviewsRatingGreaterThan(Integer rating);
+   List<ResearchPaper> findByReviewsRatingGreaterThan(Integer rating);
 }

@@ -6,5 +6,5 @@ public record UserDTO(
     @NotBlank String firstName,
     String middleName,
     @NotBlank String lastName,
-    @NotBlank String email
-) {}
+    @NotBlank String email) {
+}

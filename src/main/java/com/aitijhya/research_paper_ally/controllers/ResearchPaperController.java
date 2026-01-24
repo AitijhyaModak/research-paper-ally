@@ -9,6 +9,7 @@ import com.aitijhya.research_paper_ally.ResearchPaper.ResearchPaper;
 import com.aitijhya.research_paper_ally.requestDTO.ResearchPaperDTO;
 import com.aitijhya.research_paper_ally.services.ResearchPaperService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,10 +18,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RequestMapping("/research-paper")
 @RequiredArgsConstructor
 public class ResearchPaperController {
-  private final ResearchPaperService researchPaperService;
+   private final ResearchPaperService researchPaperService;
 
-  @PostMapping("/upload")
-  public ResponseEntity<ResearchPaper> uploadPaper(@RequestBody ResearchPaperDTO paperDTO) {
-    return ResponseEntity.status(HttpStatus.CREATED).body(researchPaperService.uploadPaper(paperDTO));
-  }
+   @PostMapping("/upload")
+   public ResponseEntity<ResearchPaper> uploadPaper(@RequestBody @Valid ResearchPaperDTO paperDTO) {
+      return ResponseEntity.status(HttpStatus.CREATED).body(researchPaperService.uploadPaper(paperDTO));
+   }
 }

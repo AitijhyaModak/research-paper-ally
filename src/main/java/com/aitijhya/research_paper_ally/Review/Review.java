@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import com.aitijhya.research_paper_ally.ResearchPaper.ResearchPaper;
 import com.aitijhya.research_paper_ally.User.User;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -21,23 +22,24 @@ import lombok.Data;
 @Builder
 @AllArgsConstructor
 public class Review {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+   @Id
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
+   private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User reviewer;
+   @ManyToOne(fetch = FetchType.LAZY)
+   @JoinColumn(name = "user_id")
+   private User reviewer;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "paper_id", insertable = false, updatable = false)
-    private ResearchPaper paper;
+   @ManyToOne(fetch = FetchType.LAZY)
+   @JoinColumn(name = "paper_id", insertable = false, updatable = false)
+   @JsonBackReference
+   private ResearchPaper paper;
 
-    private Integer rating;
+   private Integer rating;
 
-    private String comments;
+   private String comments;
 
-    private LocalDateTime createdAt;
+   private LocalDateTime createdAt;
 
-    private LocalDateTime modifiedAt;
+   private LocalDateTime modifiedAt;
 }

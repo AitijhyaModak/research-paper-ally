@@ -8,7 +8,9 @@ import java.util.Set;
 import com.aitijhya.research_paper_ally.AuthorContribution.AuthorContribution;
 import com.aitijhya.research_paper_ally.Review.Review;
 import com.aitijhya.research_paper_ally.Section.Section;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -27,6 +29,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.JdbcTypeCode;
 
 @Entity
 @Data
@@ -35,40 +38,44 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class ResearchPaper {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+   @Id
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
+   private Long id;
 
-    private String title;
+   private String title;
 
-    @Lob
-    private String abstractText;
+   @Lob
+   @JdbcTypeCode(java.sql.Types.LONGNVARCHAR)
+   private String abstractText;
 
-    @Version
-    private Integer version;
+   @Version
+   private Integer version;
 
-    @Builder.Default
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "paper_id")
-    @OrderColumn(name = "section_order")
-    private List<Section> sections = new ArrayList<>();
+   @Builder.Default
+   @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+   @JoinColumn(name = "paper_id")
+   @OrderColumn(name = "section_order")
+   @JsonManagedReference
+   private List<Section> sections = new ArrayList<>();
 
-    @Builder.Default
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "paper_id")
-    private List<AuthorContribution> authorContributions = new ArrayList<>();
+   @Builder.Default
+   @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+   @JoinColumn(name = "paper_id")
+   @JsonManagedReference
+   private List<AuthorContribution> authorContributions = new ArrayList<>();
 
-    @Builder.Default
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "paper_citations", joinColumns = @JoinColumn(name = "paper_id"), inverseJoinColumns = @JoinColumn(name = "cited_paper_id"))
-    private Set<ResearchPaper> citations = new HashSet<>();
+   @Builder.Default
+   @ManyToMany(fetch = FetchType.LAZY)
+   @JoinTable(name = "paper_citations", joinColumns = @JoinColumn(name = "paper_id"), inverseJoinColumns = @JoinColumn(name = "cited_paper_id"))
+   private Set<ResearchPaper> citations = new HashSet<>();
 
-    @Builder.Default
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "paper_id")
-    private List<Review> reviews = new ArrayList<>();
+   @Builder.Default
+   @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+   @JoinColumn(name = "paper_id")
+   @JsonManagedReference
+   private List<Review> reviews = new ArrayList<>();
 
-    @Column(nullable = false, unique = true, updatable = false)
-    @EqualsAndHashCode.Include
-    private String uuid;
+   @Column(nullable = false, unique = true, updatable = false)
+   @EqualsAndHashCode.Include
+   private String uuid;
 }
