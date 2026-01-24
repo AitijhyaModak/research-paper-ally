@@ -1,5 +1,6 @@
 package com.aitijhya.research_paper_ally.error;
 
+import com.aitijhya.research_paper_ally.exception.NotAuthorizedException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +27,7 @@ public class ErrorHandler {
    }
 
    @ExceptionHandler(DataIntegrityViolationException.class)
-   public ResponseEntity<ErrorJson> handleDIVioloation(DataIntegrityViolationException e) {
+   public ResponseEntity<ErrorJson> handleDIViolation(DataIntegrityViolationException e) {
       ErrorJson errorJson = buildResponse(HttpStatus.CONFLICT, "Database constraint violation.");
       return ResponseEntity.status(HttpStatus.CONFLICT).body(errorJson);
    }
@@ -37,11 +38,16 @@ public class ErrorHandler {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorJson);
    }
 
+   @ExceptionHandler(NotAuthorizedException.class)
+   public ResponseEntity<ErrorJson> handleNotAuthorized(NotAuthorizedException e) {
+      ErrorJson errorJson = buildResponse(HttpStatus.FORBIDDEN, "Unauthorized");
+      return ResponseEntity.status(HttpStatus.FORBIDDEN).body(errorJson);
+   }
+
    private ErrorJson buildResponse(HttpStatus status, String message) {
-      ErrorJson errorJson = new ErrorJson(
+      return new ErrorJson(
             status.value(),
             message,
             System.currentTimeMillis());
-      return errorJson;
    }
 }

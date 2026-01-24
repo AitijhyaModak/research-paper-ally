@@ -6,6 +6,7 @@ import com.aitijhya.research_paper_ally.ResearchPaper.ResearchPaper;
 import com.aitijhya.research_paper_ally.User.User;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -16,11 +17,13 @@ import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class Review {
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +34,7 @@ public class Review {
    private User reviewer;
 
    @ManyToOne(fetch = FetchType.LAZY)
-   @JoinColumn(name = "paper_id", insertable = false, updatable = false)
+   @JoinColumn(name = "paper_id")
    @JsonBackReference
    private ResearchPaper paper;
 
